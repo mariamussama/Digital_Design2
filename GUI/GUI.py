@@ -222,7 +222,7 @@ def window():
     win = QWidget()
     grid = QGridLayout()
     
-    core, cells, rows, cols, N, netlist, n_nets = readfile("d0.txt")
+    core, cells, rows, cols, N, netlist, n_nets = readfile("t3.txt")
     core2, cells2 = annealing(core, cells, rows, cols, N, netlist, n_nets)
     
     grid.addWidget(QLabel("Cell Placement Tool"))
