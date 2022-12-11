@@ -360,15 +360,20 @@ def annealing(current_core, cell, rows, cols, N, netlist, n_nets, mapping):
             # swaps 2 current_cells together
             # new_core = swap_core(best_core.copy(), x_1, x_2, y_1, y_2, rows, cols)
             # print("new")
-
+            new_cells = best_cells.copy()
             if (best_core[y_2, x_2] != -1) and (best_core[y_1, x_1] != -1):
-                new_cells = swap(best_cells.copy(), best_core[y_1, x_1], best_core[y_2, x_2])
+                temp = new_cells[best_core[y_1, x_1]]
+                new_cells[best_core[y_1, x_1]] = new_cells[best_core[y_2, x_2]]
+                new_cells[best_core[y_2, x_2]] = temp
+                # new_cells = swap(best_cells.copy(), , best_core[y_2, x_2])
                 # print("1")
             elif best_core[y_1, x_1] != -1:
-                new_cells = update(best_cells.copy(), best_core[y_1, x_1], y_2, x_2)
+                # new_cells = update(best_cells.copy(), best_core[y_1, x_1], y_2, x_2)
+                new_cells[best_core[y_1, x_1]] = (x_2, y_2)
                 # print("2")
             elif best_core[y_2, x_2] != -1:
-                new_cells = update(best_cells.copy(), best_core[y_2, x_2], y_1, x_1)
+                # new_cells = update(best_cells.copy(), best_core[y_2, x_2], y_1, x_1)
+                new_cells[best_core[y_2, x_2]] = (x_1, y_1)
                 # print("3")
 
             # calculate wire length using HPWL
@@ -390,9 +395,12 @@ def annealing(current_core, cell, rows, cols, N, netlist, n_nets, mapping):
                 # accept the change
                 # print(init_net, HPWL_before, new_init_net, new_hpwl, int(best_core[y_1][x_1]), "x", x_1, "y", y_1,
                 #       int(best_core[y_2][x_2]), "x", x_2, "y", y_2)
-                new_core = swap_core(best_core.copy(), x_1, x_2, y_1, y_2, best_core[y_1, x_1],
-                                                best_core[y_2, x_2])
-                best_core = new_core
+                # new_core = swap_core(best_core.copy(), x_1, x_2, y_1, y_2, best_core[y_1, x_1],
+                #                              best_core[y_2, x_2])
+                temp = best_core[y_2, x_2]
+                best_core[y_2, x_2] = best_core[y_1, x_1]
+                best_core[y_1, x_1] = temp
+                #best_core = new_core
                 best_cells = new_cells
                 HPWL_before = new_hpwl
                 init_net = new_init_net.copy()
@@ -404,9 +412,12 @@ def annealing(current_core, cell, rows, cols, N, netlist, n_nets, mapping):
                 if random.random() > equation(change_length, T):
                     # print(init_net, HPWL_before, new_init_net, new_hpwl, int(best_core[y_1][x_1]), "x", x_1, "y", y_1,
                     #       int(best_core[y_2][x_2]), "x", x_2, "y", y_2)
-                    new_core = swap_core(best_core.copy(), x_1, x_2, y_1, y_2, best_core[y_1, x_1],
-                                                    best_core[y_2, x_2])
-                    best_core = new_core
+                    # new_core = swap_core(best_core.copy(), x_1, x_2, y_1, y_2, best_core[y_1, x_1],
+                    #                                 best_core[y_2, x_2])
+                    # best_core = new_core
+                    temp = best_core[y_2, x_2]
+                    best_core[y_2, x_2] = best_core[y_1, x_1]
+                    best_core[y_1, x_1] = temp
                     best_cells = new_cells
                     HPWL_before = new_hpwl
                     init_net = new_init_net
