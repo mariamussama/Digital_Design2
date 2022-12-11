@@ -303,7 +303,8 @@ def annealing(current_core, cell, rows, cols, N, netlist, n_nets, mapping):
     return HPWL_before, best_core, best_cells
 
 
-mapping, core, cells, rows, cols, N, netlist, n_nets = readfile("t3.txt")
+random.seed(10)
+mapping, core, cells, rows, cols, N, netlist, n_nets = readfile("d0.txt")
 print(netlist)
 print_core(core, rows, cols)
 print()
