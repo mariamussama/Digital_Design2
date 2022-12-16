@@ -32,6 +32,7 @@ def mapping_cells(netlist, N):
 def HPWL_mod_2(init_NET, initial_HPWL, netlist, cel, mapping, c1, c2):
     k = 0
     vec = {}
+
     for j in mapping[c1]:
         X = []
         Y = []
@@ -138,6 +139,19 @@ def swap_core(co, x1, x2, y1, y2, a, b):
     co[y1, x1] = b
     co[y2, x2] = a
     return co
+
+
+def print_binary(coree, rowss, colss):
+    print()
+    print("Binary representation")
+    for row in range(0, rowss, 1):
+        for col in range(0, colss, 1):
+            if (coree[row, col] != -1) and (coree[row, col] != "-1"):
+                print(0, end="\t")
+            else:
+                print(1, end="\t")
+        print()
+    print()
 
 
 def print_core(coree, rowss, colss):
@@ -293,12 +307,14 @@ def annealing(current_core, cell, rows, cols, N, netlist, n_nets, mapping):
 
 
 random.seed(10)
-mapping, core, cells, rows, cols, N, netlist, n_nets = readfile("d0.txt")
+mapping, core, cells, rows, cols, N, netlist, n_nets = readfile("t3.txt")
 print(netlist)
+print()
 print_core(core, rows, cols)
-print()
 final_hpwl, core2, cells2 = annealing(core, cells, rows, cols, N, netlist, n_nets, mapping)
-print_core(core2, rows, cols)
 print()
+print()
+print_core(core2, rows, cols)
 print("Total wire length = ", end=" ")
 print(final_hpwl)
+print_binary(core2, rows, cols)
