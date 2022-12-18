@@ -135,11 +135,6 @@ def readfile(path):
     return mapping, core, cells, rows, cols, int(N[0]), netlist, int(N[1])
 
 
-def swap_core(co, x1, x2, y1, y2, a, b):
-    co[y1, x1] = b
-    co[y2, x2] = a
-    return co
-
 
 def print_binary(coree, rowss, colss):
     print()
@@ -165,25 +160,12 @@ def print_core(coree, rowss, colss):
     print()
 
 
-def swap(arr, index_1, index_2):
-    temp = arr[index_1]
-    arr[index_1] = arr[index_2]
-    arr[index_2] = temp
-    return arr
-
-
 def schedule_temp(t):
     return t * 0.95
 
 
 def equation(change_length, tem):
     return (1 - math.exp(-(change_length) / tem))
-
-
-def update(cell, index, y, x):
-    cell[index] = (x, y)
-
-    return cell
 
 
 # create annealing algorithm
